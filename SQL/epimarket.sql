@@ -37,10 +37,10 @@ CREATE TABLE `epimarket`.`reduction` (
 DROP TABLE IF EXISTS `epimarket`.`order`;
 CREATE TABLE `epimarket`.`order` (
   `id` int(32) unsigned NOT NULL AUTO_INCREMENT,
-  `order_id` int(32) unsigned NOT NULL
-  `product_id` int(32) unsigned NOT NULL
-  `customer_id` int(32) unsigned NOT NULL
-  `quantity` int(32) unsigned NOT NULL
+  `order_id` int(32) unsigned NOT NULL,
+  `product_id` int(32) unsigned NOT NULL,
+  `customer_id` int(32) unsigned NOT NULL,
+  `quantity` int(32) unsigned NOT NULL,
   `date` DATE NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -48,17 +48,17 @@ CREATE TABLE `epimarket`.`order` (
 DROP TABLE IF EXISTS `epimarket`.`product`;
 CREATE TABLE `epimarket`.`product` (
   `id` int(32) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL
-  `description` varchar(512) NOT NULL
-  `picture` varchar(255) NOT NULL
+  `name` varchar(255) NOT NULL,
+  `description` varchar(512) NOT NULL,
+  `picture` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `epimarket`.`category`;
 CREATE TABLE `epimarket`.`category` (
   `id` int(32) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL
-  `description` varchar(512) NOT NULL
+  `name` varchar(255) NOT NULL,
+  `description` varchar(512) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -66,10 +66,10 @@ CREATE TABLE `epimarket`.`category` (
 DROP TABLE IF EXISTS `epimarket`.`stock`;
 CREATE TABLE `epimarket`.`stock` (
   `id` int(32) unsigned NOT NULL AUTO_INCREMENT,
-  `product_id` int(32) unsigned NOT NULL
-  `quantity` int(32) unsigned NOT NULL
-  `buy_price` int(32) unsigned NOT NULL
-  `sell_price` int(32) unsigned NOT NULL
-  `next_buying` DATE NOT NULL
+  `product_id` int(32) unsigned NOT NULL,
+  `quantity` int(32) unsigned NOT NULL,
+  `buy_price` int(32) unsigned NOT NULL,
+  `sell_price` int(32) unsigned NOT NULL,
+  `next_buying` DATE NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
