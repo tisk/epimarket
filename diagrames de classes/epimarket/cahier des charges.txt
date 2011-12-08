@@ -1,0 +1,26 @@
+Client:
+ - Ajout/Suppression/Modification de données personnelles
+ - Doit fournir les informations le concernant permettant de le livrer.
+ - Doit pouvoir se loguer sur le site
+ - Doit pouvoir créer un panier (gérer applicativement)
+ - Doit pouvoir ajouter des objets dans son panier
+ - Doit confirmer sa commande
+ - Doit pouvoir choisir les reductions
+ - Doit pouvoir accéder à son historique de commandes
+
+
+ - Doit pouvoir naviguer dans les différentes catégories
+ - Doit pouvoir voir s'il reste des objets en stock, si non,
+	dans combien de temps il y en aura à nouveau.
+ - Doit pouvoir voir les produits en vente (nom, description,
+		prix, image)
+ - Doit pouvoir voir les promotions associées aux produits
+ - 
+
+Administration:
+ - Ajout/Suppression/Modification:
+	- catégories
+	- produits
+	- promotions
+	- stock
+
