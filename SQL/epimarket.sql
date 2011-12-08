@@ -4,6 +4,7 @@ CREATE DATABASE `epimarket` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 DROP TABLE IF EXISTS `epimarket`.`customer`;
 CREATE TABLE `epimarket`.`customer` (
   `id` int(32) unsigned NOT NULL AUTO_INCREMENT,
+  `communication_type` int(32) unsigned NOT NULL,
   `first_name` varchar(30) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `adress` varchar(255) NOT NULL,
@@ -29,6 +30,7 @@ CREATE TABLE `epimarket`.`reduction` (
   `type` int(32) unsigned NOT NULL,
   `value` int(32) unsigned NOT NULL,
   `target` int(32) unsigned NOT NULL,
+  `deadline` DATE NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -71,5 +73,3 @@ CREATE TABLE `epimarket`.`stock` (
   `next_buying` DATE NOT NULL
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
