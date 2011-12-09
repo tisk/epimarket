@@ -16,12 +16,12 @@ abstract class ABDDConnection
 		// TODO Auto-generated constructor stub
 	}
 
-	public abstract bool isRegister();
+	public abstract boolean isRegister();
 
 	public void create()
 	{
 		try {
-			if (this.isRegister() == bool.FALSE)
+			if (this.isRegister() == false)
 			{
 				Statement  myState                                 = connection.myConnect.createStatement();
 				System.out.print("REQUEST \n" + getCreateDbRequest() + "\nSTARTED...\n");
