@@ -48,6 +48,7 @@ CREATE TABLE `epimarket`.`order` (
 DROP TABLE IF EXISTS `epimarket`.`product`;
 CREATE TABLE `epimarket`.`product` (
   `id` int(32) unsigned NOT NULL AUTO_INCREMENT,
+  `categoryId` int(32) unsigned NOT NULL,
   `name` varchar(255) NOT NULL,
   `description` varchar(512) NOT NULL,
   `picture` varchar(255) NOT NULL,
