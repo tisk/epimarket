@@ -6,15 +6,15 @@ import java.util.Set;
 
 import com.mysql.jdbc.ResultSet;
 
-public class DbItem  extends MyDbUtils
+public class DbItem extends MyDbUtils
 {
 
-	public Set<Product>			getProductList()
+	static public Set<Product>			getProductList()
 	{
 		Set<Product> listProduct = new HashSet<Product>();
 		try 
 		{
-			ResultSet rs = (ResultSet) select("select * from product;");
+			ResultSet rs = (ResultSet)select("select * from product;");
 			while (rs.next())
 			{
 				String name = rs.getString(3);
@@ -29,7 +29,7 @@ public class DbItem  extends MyDbUtils
 		return listProduct;
 	}
 	
-	public Set<Reduction>			getReductionList()
+	static public Set<Reduction>			getReductionList()
 	{
 		Set<Reduction> listReduction = new HashSet<Reduction>();
 		try
@@ -49,7 +49,7 @@ public class DbItem  extends MyDbUtils
 		return listReduction;
 	}
 	
-	public Set<Category>			getCategoryList()
+	static public Set<Category>			getCategoryList()
 	{
 		Set<Category> listCategory = new HashSet<Category>();
 		try
@@ -69,7 +69,7 @@ public class DbItem  extends MyDbUtils
 		return listCategory;
 	}
 
-	public Set<Order>			getOrderList()
+	static public Set<Order>			getOrderList()
 	{
 		Set<Order> listOrder = new HashSet<Order>();
 		try
@@ -89,7 +89,7 @@ public class DbItem  extends MyDbUtils
 		return listOrder;
 	}
 	
-	public Set<Customer>			getCustomerList()
+	static public Set<Customer>			getCustomerList()
 	{
 		Set<Customer> listCustomer = null;
 		return listCustomer;

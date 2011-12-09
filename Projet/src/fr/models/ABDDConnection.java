@@ -23,7 +23,7 @@ abstract class ABDDConnection
 		try {
 			if (this.isRegister() == false)
 			{
-				Statement  myState                                 = connection.myConnect.createStatement();
+				Statement  myState = MyDbUtils.myConnect.createStatement();
 				System.out.print("REQUEST \n" + getCreateDbRequest() + "\nSTARTED...\n");
 				myState.executeUpdate(getCreateDbRequest());
 				System.out.print("SUCCESS\n");

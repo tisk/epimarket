@@ -42,7 +42,7 @@ public class MyDbUtils
         }
     }
 
-	public void insert(String request)
+	static public void insert(String request)
 	{
 		try
 		{
@@ -58,7 +58,7 @@ public class MyDbUtils
 		}
 	}
 	 
-	public ResultSet select(String request)
+	static public ResultSet select(String request)
 	{
 		ResultSet myResultSet = null;
 		try
@@ -76,7 +76,7 @@ public class MyDbUtils
 		return myResultSet;
 	}
 	
-	public void update(String request)
+	static public void update(String request)
 	{
 		try 
 		{
@@ -91,7 +91,7 @@ public class MyDbUtils
 		}
 	}
 
-	public void delete(String request)
+	static public void delete(String request)
 	{
 		try 
 		{

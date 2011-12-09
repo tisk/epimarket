@@ -88,9 +88,39 @@ public class Customer extends MyDbUtils
 		}
 		for (Product prod : basket.products().keySet())
 			insert("insert into order (orderId, productId, customerId, quantity) " +
-					"VALUES(" + count.toString() + ",'" + 
-			 	prod.getId() + "','" + this.getId()  + "','" + basket.products().get(prod) + "');");
+					"VALUES(" + count.toString() + "," + 
+			 	prod.getId() + "," + this.getId()  + "," + basket.products().get(prod) + ");");
 		return true;
+	}
+	
+	public void addInBasket(Product product)
+	{
+		basket.addProduct(product);
+	}
+	
+	public void rmFromBasket(Product product)
+	{
+		basket.rmProduct(product);
+	}
+	
+	public Set<Reduction> getAssociatedOffer()
+	{
+		ResultSet rs = null;
+		Set<Reduction>	reducs = new HashSet<Reduction>();
+		
+		/*try
+		{
+			rs = (ResultSet)select("select * from Reduction");
+			while (rs.next())
+			{
+				count = rs.getInt(1);
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();*/
+			return null;
+		//}
 	}
 	
 	public int			getId()			{ return id; }
