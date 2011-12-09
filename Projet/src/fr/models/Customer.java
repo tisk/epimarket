@@ -1,6 +1,6 @@
 package fr.models;
 
-public class Customer extends DBUtil
+public class Customer extends MyDbUtils
 {
 	public enum eCom
 	{
