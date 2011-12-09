@@ -3,6 +3,8 @@ package fr.test;
 import fr.models.Category;
 import fr.models.MyDbUtils;
 import fr.models.Product;
+import fr.models.Customer.eCom;
+import fr.models.Customer;
 
 public class Main {
 
@@ -41,7 +43,7 @@ public class Main {
 		//Suppression d'une categorie
 		c3.remove();
 		
-		
+		//Products
 		Product p1 = new Product();
 		p1.setName("video fly");
 		p1.setCategory(1);
@@ -54,5 +56,15 @@ public class Main {
 		p1.create();
 		p1.modify(0, "video box", -1);
 		p1.modify(5, "", 1000);
+		
+		//clients
+		Customer cl1 = new Customer();
+		cl1.setFirstName("billi");
+		cl1.setLastName("bob");
+		cl1.setAddress("2 rue de ouest 44000 nantes");
+		cl1.setEmail("billi.bob@bobidic.net");
+		cl1.setGender(true);
+		cl1.setPhone("0000000001");
+		//cl1.setCommunicationType(EMAIL);	
 	}
 }
