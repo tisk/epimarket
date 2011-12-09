@@ -1,6 +1,7 @@
 package fr.models;
 
 import java.sql.SQLException;
+import java.util.Set;
 
 import com.mysql.jdbc.ResultSet;
 
@@ -17,11 +18,31 @@ public class Product extends MyDbUtils
 	private int		price;
 	private int		id;
 	
+	public Product(String name) 
+	{
+		try
+		{
+			this.name = name;
+			ResultSet rs = (ResultSet) select("select * from product where name = '" + name + "';");
+			if (rs.next())
+			{
+				id = rs.getInt(1);
+				categoryId = rs.getInt(2);
+				description = rs.getString(4);
+				picture = rs.getString(5);
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	
 	public Product() 
 	{
-		
 	}
-
+	
 	private boolean existObj(int type, String content)
 	{
 		boolean res = false;
@@ -89,7 +110,22 @@ public class Product extends MyDbUtils
 	}
 	
 	public void setId(int id)					{ this.id = id; }
-	public void setName(String name)			{ this.name = name; }
+	public void setName(String name)
+	{ 
+		try
+		{
+			this.name = name;
+			ResultSet rs = (ResultSet) select("select * from product where name = '" + name + "';");
+			if (rs.next())
+			{
+				id = rs.getInt(1); 	
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
 	public void setCategory(int i)				{ this.categoryId = i; }
 	public void setPicture(String i)			{ this.picture = i; }
 	public void setDescription(String string)	{ this.description = string; }

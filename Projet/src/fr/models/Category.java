@@ -11,6 +11,23 @@ public class Category extends MyDbUtils
 	private String	description;
 
 	public Category(){}
+	public Category(String name)
+	{
+		try
+		{
+			this.name = name;
+			ResultSet rs = (ResultSet) select("select * from category where name = '" + name + "';");
+			if (rs.next())
+			{
+				id = rs.getInt(1);
+				description = rs.getString(3);
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
 	public int 		getId() 			{ return id; }
 	public String	getName()			{ return name; }
 	public String	getDescription()	{ return description; }
