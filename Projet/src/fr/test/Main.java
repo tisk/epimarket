@@ -65,6 +65,6 @@ public class Main {
 		cl1.setEmail("billi.bob@bobidic.net");
 		cl1.setGender(true);
 		cl1.setPhone("0000000001");
-		//cl1.setCommunicationType(EMAIL);	
+		cl1.setComType(Customer.eCom.EMAIL);
 	}
 }
