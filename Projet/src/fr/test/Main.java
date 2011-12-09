@@ -66,5 +66,9 @@ public class Main {
 		cl1.setGender(true);
 		cl1.setPhone("0000000001");
 		cl1.setComType(Customer.eCom.EMAIL);
+		
+		//Reduction
+		Reduction r1 = new Reduction();
+		
 	}
 }
