@@ -8,23 +8,23 @@ public class Product extends MyDbUtils
 {
 
 	private String	name;
-	private String	description;	;
+	private String	description;
 	private String	picture;
 	private int		categoryId;
 	private int		quantity;
 	private int		buy_price;
 	private int		sell_price;
 	private int		price;
-	private int		pid;
+	private int		id;
 	
 	public Product() 
 	{
 		
 	}
 
-	private bool existObj(int type, String content)
+	private boolean existObj(int type, String content)
 	{
-		bool res = bool.FALSE;
+		boolean res = false;
 		ResultSet rs = null;
 		try 
 		{
@@ -32,8 +32,8 @@ public class Product extends MyDbUtils
 				rs = (ResultSet) select("select * from product where " + getAttr(type) + " = '" + content + "';");
 			if (rs != null && rs.next())
 			{
-				pid = rs.getInt(1);
-				res = bool.TRUE;
+				id = rs.getInt(1);
+				res = true;
 			}	
 		}
 		catch (SQLException e)
@@ -45,7 +45,7 @@ public class Product extends MyDbUtils
 	
 	public void create()
 	{
-		if (existObj(0, name) == bool.FALSE)
+		if (existObj(0, name) == false)
 		{
 		 insert("insert into product (categoryId, name, description, picture) VALUES(" + categoryId + ",'" + 
 				 	name  + "','" + description  + "','" + picture + "');");
@@ -53,20 +53,20 @@ public class Product extends MyDbUtils
 				ResultSet rs = null;
 				rs = (ResultSet) select("select * from product where name = '" + name + "';");
 				if (rs.next())
-				pid = rs.getInt(1);
+				id = rs.getInt(1);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		 insert("insert into stock (product_id, quantity, buy_price, sell_price, next_buying) VALUES(" + pid + "," + quantity +"," +
+		 insert("insert into stock (product_id, quantity, buy_price, sell_price, next_buying) VALUES(" + id + "," + quantity +"," +
 				 	buy_price + "," + sell_price + "," + 0 + ");");
 		}
 	}
 	
 	public void modify(int type, String content, int cont)
 	{
-		if (existObj(type, content) == bool.FALSE)
-			if ((type != 0) || (existObj(type, getAttrVal(type)) == bool.TRUE))
+		if (existObj(type, content) == false)
+			if ((type != 0) || (existObj(type, getAttrVal(type)) == true))
 			{
 				if (type < 3)
 				{
@@ -88,7 +88,7 @@ public class Product extends MyDbUtils
 		delete("delete from product, stock where name = '" + name + "' AND product.id = stock.productId;");
 	}
 	
-	
+	public void setId(int id)					{ this.id = id; }
 	public void setName(String name)			{ this.name = name; }
 	public void setCategory(int i)				{ this.categoryId = i; }
 	public void setPicture(String i)			{ this.picture = i; }
@@ -98,10 +98,15 @@ public class Product extends MyDbUtils
 	public void setBuy_price(int buy_price)		{ this.buy_price = buy_price; }
 	public void setSell_price(int sell_price)	{ this.sell_price = sell_price; }
 	
-	public int getPrice()		{ return price; }
-	public int getQuantity()	{ return quantity; }
-	public int getBuy_price()	{ return buy_price; }
-	public int getSell_price()	{ return sell_price; }
+	public int		getId()				{ return id; }
+	public String	getName()			{ return name; }
+	public int		getCategory()		{ return categoryId; }
+	public String	getPicture()		{ return picture; }
+	public String	getDescription()	{ return description; }
+	public int		getPrice()			{ return price; }
+	public int		getQuantity()		{ return quantity; }
+	public int		getBuy_price()		{ return buy_price; }
+	public int		getSell_price()		{ return sell_price; }
 
 	public String getAttr(int type)		
 	{	
