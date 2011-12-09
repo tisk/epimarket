@@ -17,6 +17,7 @@ public class Product extends MyDbUtils
 	private int		sell_price;
 	private int		price;
 	private int		id;
+	private String  next_buying;
 	
 	public Product(String name) 
 	{
@@ -30,6 +31,14 @@ public class Product extends MyDbUtils
 				categoryId = rs.getInt(2);
 				description = rs.getString(4);
 				picture = rs.getString(5);
+			}
+			rs = (ResultSet) select("select * from stock where product_id = " + id + ";");
+			if (rs.next())
+			{
+				quantity = rs.getInt(3);
+				buy_price = rs.getInt(4);
+				sell_price = rs.getInt(5);
+				next_buying = rs.getString(6);
 			}
 		}
 		catch (SQLException e)
@@ -235,5 +244,15 @@ public class Product extends MyDbUtils
 		default	:
 			break;		
 		}
+	}
+
+
+	public void setNext_buying(String next_buying) {
+		this.next_buying = next_buying;
+	}
+
+
+	public String getNext_buying() {
+		return next_buying;
 	}	
 }
