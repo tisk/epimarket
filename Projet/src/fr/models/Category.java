@@ -60,18 +60,16 @@ public class Category extends MyDbUtils
 	public void setName(String name)		{ this.name = name; }
 	public void setDescription(String desc) { this.description = desc; }
 
-	private bool existObj(int type, String content)
+	private boolean existObj(int type, String content)
 	{
-		bool res = bool.FALSE;
+		boolean res = false;
 		ResultSet rs = null;
 		try 
 		{
 			if (type == 0)
 				rs = (ResultSet) select("select * from category where " + getAttr(type) + " = '" + content + "';");
 			if (rs != null && rs.next())
-			{
-				res = bool.TRUE;
-			}	
+				res = true;
 		}
 		catch (SQLException e)
 		{
@@ -82,14 +80,14 @@ public class Category extends MyDbUtils
 	
 	public void create()
 	{
-		if (existObj(0, name) == bool.FALSE)
+		if (existObj(0, name) == false)
 		 insert("insert into category (name, description) VALUES('" + name +"','" + description + "');");
 	}
 	
 	public void modify(int type, String content)
 	{
-		if (existObj(type, content) == bool.FALSE)
-			if (existObj(type, getAttrVal(type)) == bool.TRUE)
+		if (existObj(type, content) == false)
+			if (existObj(type, getAttrVal(type)) == true)
 				update("update category set " + getAttr(type) + "=" + "'" + content + "';");
 		setAttrVal(type, content);
 	}
