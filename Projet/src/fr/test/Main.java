@@ -4,7 +4,10 @@ import fr.models.Category;
 import fr.models.MyDbUtils;
 import fr.models.Product;
 import fr.models.Customer.eCom;
+import fr.models.Reduction.eTarget;
+import fr.models.Reduction.eType;
 import fr.models.Customer;
+import fr.models.Reduction;
 
 public class Main {
 
@@ -69,6 +72,13 @@ public class Main {
 		
 		//Reduction
 		Reduction r1 = new Reduction();
+		r1.setName("sa decoiffe ?");
+		r1.setDescription("va te recoiffer !");
+		//r1.setType(0);
+		r1.setValue(90);
+		r1.create();
+		r1.modify(0, "bill est decoiffe ??!!!!", -1);
+		//r1.setTarget(sad);
 		
 	}
 }
