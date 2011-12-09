@@ -2,6 +2,7 @@ package fr.test;
 
 import fr.models.Category;
 import fr.models.MyDbUtils;
+import fr.models.Product;
 
 public class Main {
 
@@ -28,7 +29,7 @@ public class Main {
 		c1.create();
 		//Modification d'une categorie existante
 		c1.modify(0, "billis film");
-		c1.modify(1, "les meilleurs films !");		
+		c1.modify(1, "les meilleurs films !");
 
 		Category c2	= new Category();
 		c2.setName("Video");
@@ -36,18 +37,22 @@ public class Main {
 		
 		Category c3	= new Category();
 		c3.setName("Sound");
-		c3.create();		
+		c3.create();
 		//Suppression d'une categorie
 		c3.remove();
 		
 		
-		/*Product p1 = new Product(test);
+		Product p1 = new Product();
 		p1.setName("video fly");
 		p1.setCategory(1);
-		p1.setPrice(20);
+		p1.setBuy_price(10);
+		p1.setSell_price(20);
+		p1.setPicture("c::bibi/pict/");
 		p1.setDescription("un koala qui vole !");
-		System.out.println(p1.getCreateDbRequest());
-		*/
-		
+		p1.setQuantity(100);
+		// creation d'un nouvau produit
+		p1.create();
+		p1.modify(0, "video box", -1);
+		p1.modify(5, "", 1000);
 	}
 }
