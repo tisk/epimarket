@@ -8,6 +8,7 @@ import fr.models.Reduction.eTarget;
 import fr.models.Reduction.eType;
 import fr.models.Customer;
 import fr.models.Reduction;
+import fr.models.Shop;
 
 public class Main {
 
@@ -21,7 +22,9 @@ public class Main {
         test.setPass("");
         test.setUrl("jdbc:mysql://localhost/epimarket");
         test.connect();
-		testbat(test);
+        Shop shop = new Shop();
+		//testbat(test);
+        shop.open();
 	}
 	
 	public static void testbat(MyDbUtils test)
@@ -57,8 +60,8 @@ public class Main {
 		p1.setQuantity(100);
 		// creation d'un nouvau produit
 		p1.create();
-		p1.modify(0, "video box", -1);
-		p1.modify(5, "", 1000);
+		p1.modify(Product.eType.NAME, "video box", -1);
+		p1.modify(Product.eType.QUANTITY, "", 1000);
 		
 		//clients
 		Customer cl1 = new Customer();
