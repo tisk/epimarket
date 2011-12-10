@@ -40,10 +40,13 @@ public class Customer extends MyDbUtils
 		{
 			if (listProduct.containsKey(product) == true)
 			{
-				if (0 < listProduct.get(product))
+				if (0 < listProduct.get(product) - 1)
 					listProduct.put(product, listProduct.get(product) - 1);
 				else
+				{
 					listProduct.remove(product);
+					//listProduct.keySet().remove(product);
+				}
 			}
 		}
 		
@@ -70,6 +73,11 @@ public class Customer extends MyDbUtils
 	private String	phone;
 	private eCom	communicationType;
 	private Basket	basket;
+	
+	public Customer()
+	{
+		basket = new Customer.Basket();
+	}
 	
 	public boolean buy()
 	{
@@ -103,6 +111,11 @@ public class Customer extends MyDbUtils
 		basket.rmProduct(product);
 	}
 	
+	public Map<Product, Integer> getBasketContent()
+	{
+		return basket.products();
+	}
+	
 	public Set<Reduction> getAssociatedOffer()
 	{
 		ResultSet rs = null;
@@ -123,13 +136,13 @@ public class Customer extends MyDbUtils
 		//}
 	}
 	
-	public int			getId()			{ return id; }
+	public Integer		getId()			{ return id; }
 	public String		getFirstName()	{ return firstName; }
 	public String		getLastName()	{ return lastName; }
 	public String		getAddress()	{ return address; }
 	public String		getEmail() 		{ return email; }
 	public String		getDate()		{ return date; }
-	public boolean		isGender()		{ return gender; }
+	public Boolean		isGender()		{ return gender; }
 	public String		getPhone()		{ return phone; }
 	public eCom			getComType()	{ return communicationType; }
 	public final Basket	getBasket() 	{ return basket; }

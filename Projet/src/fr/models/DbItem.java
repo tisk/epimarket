@@ -11,10 +11,21 @@ public class DbItem extends MyDbUtils
 
 	static public Set<Product>			getProductList()
 	{
+		return getProductList(null);
+	}
+	
+	static public Set<Product>			getProductList(Category cat)
+	{
 		Set<Product> listProduct = new HashSet<Product>();
 		try 
 		{
-			ResultSet rs = (ResultSet)select("select * from product;");
+			ResultSet rs;
+			if (cat == null)
+				rs = (ResultSet)select("select * from product;");
+			else
+				rs = (ResultSet)select("select * from product where categoryId = " + cat.getId().toString() + ";");
+			if (rs == null)
+				return null;
 			while (rs.next())
 			{
 				String name = rs.getString(3);
@@ -35,6 +46,8 @@ public class DbItem extends MyDbUtils
 		try
 		{
 			ResultSet rs = (ResultSet) select("select * from reduction;");
+			if (rs == null)
+				return null;
 			while (rs.next())
 			{
 				String name = rs.getString(2);
@@ -55,6 +68,8 @@ public class DbItem extends MyDbUtils
 		try
 		{
 			ResultSet rs = (ResultSet) select("select * from category;");
+			if (rs == null)
+				return null;
 			while (rs.next())
 			{
 				String name = rs.getString(2);
@@ -75,6 +90,8 @@ public class DbItem extends MyDbUtils
 		try
 		{
 			ResultSet rs = (ResultSet) select("select * from order;");
+			if (rs == null)
+				return null;
 			while (rs.next())
 			{
 				int id = rs.getInt(1);

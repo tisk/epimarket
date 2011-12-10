@@ -1,13 +1,23 @@
 package fr.models;
 
 import java.sql.SQLException;
-import java.util.Set;
-
 import com.mysql.jdbc.ResultSet;
+
 
 public class Product extends MyDbUtils
 {
-
+	public enum eType
+	{
+		NONE,
+		NAME,
+		DESCRIPTION,
+		PICTURE,
+		CATEGORY,
+		QUANTITY,
+		BUYPRICE,
+		SELLPRICE
+	}
+	
 	private String	name;
 	private String	description;
 	private String	picture;
@@ -52,13 +62,38 @@ public class Product extends MyDbUtils
 	{
 	}
 	
-	private boolean existObj(int type, String content)
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (obj instanceof Product == false)
+			return false;
+		if (((Product)obj).getId() == id)
+			return true;
+		if (((Product)obj).getName() == name &&
+				((Product)obj).getDescription() == description)
+			return true;
+		return false;
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((description == null) ? 0 : description.hashCode());
+		result = prime * result + id;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	private boolean existObj(eType type, String content)
 	{
 		boolean res = false;
 		ResultSet rs = null;
 		try 
 		{
-			if (type == 0)
+			if (type == eType.NONE)
 				rs = (ResultSet) select("select * from product where " + getAttr(type) + " = '" + content + "';");
 			if (rs != null && rs.next())
 			{
@@ -75,7 +110,7 @@ public class Product extends MyDbUtils
 	
 	public void create()
 	{
-		if (existObj(0, name) == false)
+		if (existObj(eType.NONE, name) == false)
 		{
 		 insert("insert into product (categoryId, name, description, picture) VALUES(" + categoryId + ",'" + 
 				 	name  + "','" + description  + "','" + picture + "');");
@@ -93,18 +128,18 @@ public class Product extends MyDbUtils
 		}
 	}
 	
-	public void modify(int type, String content, int cont)
+	public void modify(eType type, String content, int cont)
 	{
 		if (existObj(type, content) == false)
-			if ((type != 0) || (existObj(type, getAttrVal(type)) == true))
+			if ((type != eType.NONE) || (existObj(type, getAttrVal(type)) == true))
 			{
-				if (type < 3)
+				if (type == eType.NAME || type == eType.DESCRIPTION || type == eType.PICTURE)
 				{
 					update("update product set " + getAttr(type) + "=" + "'" + content + "';");
 				}
 				else
 				{
-					if (type == 3)
+					if (type == eType.CATEGORY)
 						update("update product set " + getAttr(type) + "=" + cont + ";");
 					else
 						update("update stock set " + getAttr(type) + "= " + cont + " ;");
@@ -118,23 +153,8 @@ public class Product extends MyDbUtils
 		delete("delete from product, stock where name = '" + name + "' AND product.id = stock.productId;");
 	}
 	
+	public void setName(String name)			{ this.name = name; }
 	public void setId(int id)					{ this.id = id; }
-	public void setName(String name)
-	{ 
-		try
-		{
-			this.name = name;
-			ResultSet rs = (ResultSet) select("select * from product where name = '" + name + "';");
-			if (rs.next())
-			{
-				id = rs.getInt(1); 	
-			}
-		}
-		catch (SQLException e)
-		{
-			e.printStackTrace();
-		}
-	}
 	public void setCategory(int i)				{ this.categoryId = i; }
 	public void setPicture(String i)			{ this.picture = i; }
 	public void setDescription(String string)	{ this.description = string; }
@@ -142,51 +162,53 @@ public class Product extends MyDbUtils
 	public void setQuantity(int quantity)		{ this.quantity = quantity; }
 	public void setBuy_price(int buy_price)		{ this.buy_price = buy_price; }
 	public void setSell_price(int sell_price)	{ this.sell_price = sell_price; }
+	public void setNext_buying(String next)		{ this.next_buying = next; }
+
+
 	
-	public int		getId()				{ return id; }
+	public Integer	getId()				{ return id; }
 	public String	getName()			{ return name; }
-	public int		getCategory()		{ return categoryId; }
+	public Integer	getCategory()		{ return categoryId; }
 	public String	getPicture()		{ return picture; }
 	public String	getDescription()	{ return description; }
-	public int		getPrice()			{ return price; }
-	public int		getQuantity()		{ return quantity; }
-	public int		getBuy_price()		{ return buy_price; }
-	public int		getSell_price()		{ return sell_price; }
-
-	public String getAttr(int type)		
+	public Integer	getPrice()			{ return price; }
+	public Integer	getQuantity()		{ return quantity; }
+	public Integer	getBuy_price()		{ return buy_price; }
+	public Integer	getSell_price()		{ return sell_price; }
+	public String	getNext_buying()	{ return next_buying; }
+	
+	public String getAttr(eType type)		
 	{	
 		switch (type)
 		{
-		case 0:
+		case NAME :
 			return "name";
-		case 1:
+		case DESCRIPTION :
 			return "description";
-		case 2 :
+		case PICTURE :
 			return "picture";
-		case 3 :
+		case CATEGORY :
 			return "categoryId";
-		case 4 :
-			return "price";
-		case 5 :
+		case QUANTITY :
 			return "quantity";
-		case 6 :
+		case BUYPRICE :
 			return "buy_price";
-		case 7 :
+		case SELLPRICE :
 			return "sell_price";
 		default	:
 			return "";
 		}
 		
 	}
-	public String getAttrVal(int type)		
+	public String getAttrVal(eType type)		
 	{	
 		switch (type)
 		{
-		case 0:
+		case NAME :
 			return name;
-		case 1:
+		case DESCRIPTION:
 			return description;
-		case 2 :
+		case PICTURE :
 			return picture;
 		default	:
 			return "";
@@ -194,65 +216,50 @@ public class Product extends MyDbUtils
 		
 	}	
 	
-	public int getAttrInt(int type)		
+	public int getAttrInt(eType type)		
 	{	
 		switch (type)
 		{
-		case 3 :
+		case CATEGORY :
 			return categoryId;
-		case 4 :
-			return price;
-		case 5 :
+		case QUANTITY :
 			return quantity;
-		case 6 :
+		case BUYPRICE :
 			return buy_price;
-		case 7 :
+		case SELLPRICE :
 			return sell_price;
 		default	:
 			return (-1);
 		}
 	}
 	
-	public void setAttrVal(int type, String val, int valInt)		
+	public void setAttrVal(eType type, String val, int valInt)		
 	{	
 		switch (type)
 		{
-		case 0:
+		case NAME :
 			name = val;
 			break;
-		case 1:
+		case DESCRIPTION :
 			description = val;
 			break;
-		case 2:
+		case PICTURE :
 			picture = val;
 			break;
-		case 3 :
+		case CATEGORY :
 			categoryId = valInt;
 			break;
-		case 4 :
-			price = valInt;
-			break;
-		case 5 :
+		case QUANTITY :
 			quantity = valInt;
 			break;
-		case 6 :
+		case BUYPRICE :
 			buy_price = valInt;
 			break;
-		case 7 :
+		case SELLPRICE :
 			sell_price = valInt;
 			break;
 		default	:
-			break;		
+			break;
 		}
-	}
-
-
-	public void setNext_buying(String next_buying) {
-		this.next_buying = next_buying;
-	}
-
-
-	public String getNext_buying() {
-		return next_buying;
 	}	
 }
