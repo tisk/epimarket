@@ -21,7 +21,7 @@ public class Main {
         test.setPass("");
         test.setUrl("jdbc:mysql://localhost/epimarket");
         test.connect();
-        //Shop shop = new Shop();
+        Shop shop = new Shop();
 		testbat(test);
         //shop.open();
 	}
@@ -62,6 +62,30 @@ public class Main {
 		p1.modify(Product.eField.NAME, "video box", -1);
 		p1.modify(Product.eField.QUANTITY, "", 1000);
 		
+		
+		Product p2 = new Product();
+		p2.setName("video down");
+		p2.setCategory(2);
+		p2.setBuy_price(10);
+		p2.setSell_price(20);
+		p2.setPicture("c::bibi/pict/");
+		p2.setDescription("un koala qui crash !");
+		p2.setQuantity(100);
+		// creation d'un nouvau produit
+		p2.create();
+		
+		Product p3 = new Product();
+		p3.setName("video down");
+		p3.setCategory(2);
+		p3.setBuy_price(10);
+		p3.setSell_price(20);
+		p3.setPicture("c::bibi/pict/");
+		p3.setDescription("un koala qui crash !");
+		p3.setQuantity(100);
+		// creation d'un nouvau produit
+		p3.create();
+		
+		
 		//clients
 		Customer cl1 = new Customer();
 		cl1.setFirstName("billi");
@@ -74,6 +98,18 @@ public class Main {
 		cl1.setDate("21-12-2012");
 		cl1.create();
 		cl1.modify(Customer.eType.ADDRESS, "rue du paradis", -1);
+
+		Customer cl2 = new Customer();
+		cl2.setFirstName("bob");
+		cl2.setLastName("bobidic");
+		cl2.setAddress("2 toudoun 77000 para");
+		cl2.setEmail("billi.bob@bobidic.net");
+		cl2.setGender(true);
+		cl2.setPhone("0000000002");
+		cl2.setComType(Customer.eCom.EMAIL);
+		cl2.setDate("21-12-2012");
+		cl2.create();
+		
 		
 		//Reduction
 		Reduction r1 = new Reduction();
@@ -85,5 +121,13 @@ public class Main {
 		r1.create();
 		r1.modify(Reduction.eField.DESCRIPTION, "bill est decoiffe ??!!!!", -1);
 	
+		
+		Reduction r2 = new Reduction();
+		r2.setName("presque gratuit ?");
+		r2.setDescription("hum !");
+		r2.setType(Reduction.eType.PERCENT);
+		r2.setValue(10);
+		r2.setTarget(1);
+		r2.create();
 	}
 }
