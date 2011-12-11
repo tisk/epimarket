@@ -69,8 +69,9 @@ public class Reduction extends MyDbUtils
 	{
 		if (existObj(eField.NAME, name) == false)
 		{
+			java.sql.Date sqlDate = new java.sql.Date(new java.util.Date().getTime());
 		 insert("insert into reduction (name, description, type, value, target, deadLine, all_user) VALUES('" + name  + "','" + description  + "'," +
-				 type + "," + value + "," + target + "," + deadLine + "," + allUser +");");
+				 getIdEtype(type) + "," + value + "," + target + "," + sqlDate + "," + allUser +");");
 		 try {
 				ResultSet rs = null;
 				rs = (ResultSet) select("select * from reduction where name = '" + name + "';");
@@ -212,6 +213,22 @@ public class Reduction extends MyDbUtils
 		
 	}
 	
+	public Integer		getIdEtype(eType t)
+	{
+		switch (t)
+		{
+		case PERCENT :
+			return 1;
+		case SUB :
+			return 2;
+		case EQUAL :
+			return 3;
+		case GIVEN :
+			return 4;
+		default :
+			return 0;
+		}
+	}
 	
 	public Reduction(){}
 	public Integer	getId()			{ return id; }

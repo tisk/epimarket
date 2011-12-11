@@ -92,7 +92,7 @@ public class Product extends MyDbUtils
 		ResultSet rs = null;
 		try 
 		{
-			if (type == eField.NONE)
+			if (type == eField.NAME)
 				rs = (ResultSet) select("select * from product where " + getAttr(type) + " = '" + content + "';");
 			if (rs != null && rs.next())
 			{
@@ -109,7 +109,7 @@ public class Product extends MyDbUtils
 	
 	public void create()
 	{
-		if (existObj(eField.NONE, name) == false)
+		if (existObj(eField.NAME, name) == false)
 		{
 		 insert("insert into product (categoryId, name, description, picture) VALUES(" + categoryId + ",'" + 
 				 	name  + "','" + description  + "','" + picture + "');");
@@ -130,7 +130,7 @@ public class Product extends MyDbUtils
 	public void modify(eField type, String content, int cont)
 	{
 		if (existObj(type, content) == false)
-			if ((type != eField.NONE) || (existObj(type, getAttrVal(type)) == true))
+			if ((type != eField.NAME) || (existObj(type, getAttrVal(type)) == true))
 			{
 				if (type == eField.NAME || type == eField.DESCRIPTION || type == eField.PICTURE)
 				{

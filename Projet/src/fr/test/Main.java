@@ -21,9 +21,9 @@ public class Main {
         test.setPass("");
         test.setUrl("jdbc:mysql://localhost/epimarket");
         test.connect();
-        Shop shop = new Shop();
-		//testbat(test);
-        shop.open();
+        //Shop shop = new Shop();
+		testbat(test);
+        //shop.open();
 	}
 	
 	public static void testbat(MyDbUtils test)
@@ -37,7 +37,7 @@ public class Main {
 		//Modification d'une categorie existante
 		c1.modify(0, "billis film");
 		c1.modify(1, "les meilleurs films !");
-
+		
 		Category c2	= new Category();
 		c2.setName("Video");
 		c2.create();
@@ -71,16 +71,19 @@ public class Main {
 		cl1.setGender(true);
 		cl1.setPhone("0000000001");
 		cl1.setComType(Customer.eCom.EMAIL);
+		cl1.setDate("21-12-2012");
+		cl1.create();
+		cl1.modify(Customer.eType.ADDRESS, "rue du paradis", -1);
 		
 		//Reduction
 		Reduction r1 = new Reduction();
 		r1.setName("sa decoiffe ?");
 		r1.setDescription("va te recoiffer !");
-		//r1.setType(0);
+		r1.setType(Reduction.eType.PERCENT);
 		r1.setValue(90);
+		r1.setTarget(1);
 		r1.create();
 		r1.modify(Reduction.eField.DESCRIPTION, "bill est decoiffe ??!!!!", -1);
-		//r1.setTarget(sad);
-		
+	
 	}
 }
