@@ -6,7 +6,7 @@ import com.mysql.jdbc.ResultSet;
 
 public class Product extends MyDbUtils
 {
-	public enum eType
+	public enum eField
 	{
 		NONE,
 		NAME,
@@ -25,7 +25,6 @@ public class Product extends MyDbUtils
 	private int		quantity;
 	private int		buy_price;
 	private int		sell_price;
-	private int		price;
 	private int		id;
 	private String  next_buying;
 	
@@ -87,13 +86,13 @@ public class Product extends MyDbUtils
 		return result;
 	}
 
-	private boolean existObj(eType type, String content)
+	private boolean existObj(eField type, String content)
 	{
 		boolean res = false;
 		ResultSet rs = null;
 		try 
 		{
-			if (type == eType.NONE)
+			if (type == eField.NONE)
 				rs = (ResultSet) select("select * from product where " + getAttr(type) + " = '" + content + "';");
 			if (rs != null && rs.next())
 			{
@@ -110,7 +109,7 @@ public class Product extends MyDbUtils
 	
 	public void create()
 	{
-		if (existObj(eType.NONE, name) == false)
+		if (existObj(eField.NONE, name) == false)
 		{
 		 insert("insert into product (categoryId, name, description, picture) VALUES(" + categoryId + ",'" + 
 				 	name  + "','" + description  + "','" + picture + "');");
@@ -128,18 +127,18 @@ public class Product extends MyDbUtils
 		}
 	}
 	
-	public void modify(eType type, String content, int cont)
+	public void modify(eField type, String content, int cont)
 	{
 		if (existObj(type, content) == false)
-			if ((type != eType.NONE) || (existObj(type, getAttrVal(type)) == true))
+			if ((type != eField.NONE) || (existObj(type, getAttrVal(type)) == true))
 			{
-				if (type == eType.NAME || type == eType.DESCRIPTION || type == eType.PICTURE)
+				if (type == eField.NAME || type == eField.DESCRIPTION || type == eField.PICTURE)
 				{
 					update("update product set " + getAttr(type) + "=" + "'" + content + "';");
 				}
 				else
 				{
-					if (type == eType.CATEGORY)
+					if (type == eField.CATEGORY)
 						update("update product set " + getAttr(type) + "=" + cont + ";");
 					else
 						update("update stock set " + getAttr(type) + "= " + cont + " ;");
@@ -158,7 +157,6 @@ public class Product extends MyDbUtils
 	public void setCategory(int i)				{ this.categoryId = i; }
 	public void setPicture(String i)			{ this.picture = i; }
 	public void setDescription(String string)	{ this.description = string; }
-	public void setPrice(int price)				{ this.price = price; }
 	public void setQuantity(int quantity)		{ this.quantity = quantity; }
 	public void setBuy_price(int buy_price)		{ this.buy_price = buy_price; }
 	public void setSell_price(int sell_price)	{ this.sell_price = sell_price; }
@@ -171,13 +169,12 @@ public class Product extends MyDbUtils
 	public Integer	getCategory()		{ return categoryId; }
 	public String	getPicture()		{ return picture; }
 	public String	getDescription()	{ return description; }
-	public Integer	getPrice()			{ return price; }
 	public Integer	getQuantity()		{ return quantity; }
 	public Integer	getBuy_price()		{ return buy_price; }
 	public Integer	getSell_price()		{ return sell_price; }
 	public String	getNext_buying()	{ return next_buying; }
 	
-	public String getAttr(eType type)		
+	public String getAttr(eField type)		
 	{	
 		switch (type)
 		{
@@ -200,7 +197,7 @@ public class Product extends MyDbUtils
 		}
 		
 	}
-	public String getAttrVal(eType type)		
+	public String getAttrVal(eField type)		
 	{	
 		switch (type)
 		{
@@ -216,7 +213,7 @@ public class Product extends MyDbUtils
 		
 	}	
 	
-	public int getAttrInt(eType type)		
+	public int getAttrInt(eField type)		
 	{	
 		switch (type)
 		{
@@ -233,7 +230,7 @@ public class Product extends MyDbUtils
 		}
 	}
 	
-	public void setAttrVal(eType type, String val, int valInt)		
+	public void setAttrVal(eField type, String val, int valInt)		
 	{	
 		switch (type)
 		{

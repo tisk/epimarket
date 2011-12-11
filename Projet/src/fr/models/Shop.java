@@ -1,9 +1,27 @@
 package fr.models;
 
 import java.util.Set;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Shop
 {
+	static private class Price
+	{
+		public Product product;
+		public int quantity;
+		public int free;
+		public int price;
+		
+		public Price(Product prod, int price, int quantity)
+		{
+			product = prod;
+			this.quantity = quantity;
+			this.price = price;
+			free = 0;
+		}
+	}
+	
 	private Set<Category>	cats;
 	private Customer		cust;
 	
@@ -22,6 +40,7 @@ public class Shop
 		Printer.writeFull();
 		add();
 		del();
+		cust.buy();
 	}
 	
 	public void		add()
@@ -125,27 +144,83 @@ public class Shop
 			if (rep)
 			{
 				prod.setQuantity(prod.getQuantity() - 1);
-				prod.modify(Product.eType.QUANTITY, "", prod.getQuantity());
+				prod.modify(Product.eField.QUANTITY, "", prod.getQuantity());
 			}
 		}
 		Printer.writeFull();
 		return rep;
 	}
 	
+	private List<Price>	getPriceBasket()
+	{
+		List<Price>	list = new ArrayList<Price>();
+		int nb_target;
+		
+		for (Product key : cust.getBasketContent().keySet())
+			list.add(new Price(key, key.getSell_price(), cust.getBasketContent().get(key)));
+		
+		for (Reduction reduc : DbItem.getReductionList())
+		{
+			if (reduc.getAllUser() == 0)
+				continue ;
+			nb_target = 0;
+			for (Price price : list)
+			{
+				switch (reduc.getType())
+				{
+					case PERCENT:
+						if (reduc.getTarget() == price.product.getId())
+							price.price = price.price * reduc.getValue() / 100;
+						else if (-reduc.getTarget() == price.product.getCategory())
+							price.price = price.price * reduc.getValue() / 100;
+						break;
+					case SUB:
+						if (reduc.getTarget() == price.product.getId())
+							price.price -= reduc.getValue();
+						else if (-reduc.getTarget() == price.product.getCategory())
+							price.price -= reduc.getValue();
+						break;
+					case EQUAL:
+						if (reduc.getTarget() == price.product.getId())
+							price.price = reduc.getValue();
+						else if (-reduc.getTarget() == price.product.getCategory())
+							price.price = reduc.getValue();
+						break;
+					case GIVEN:
+						if (reduc.getTarget() == price.product.getId())
+							nb_target += price.quantity;
+						else if (-reduc.getTarget() == price.product.getCategory())
+							nb_target += price.quantity;
+						while (nb_target != 0 && reduc.getValue() <= nb_target)
+						{
+							price.free++;
+							nb_target -= reduc.getValue();
+						}
+						break;
+				}
+			}
+		}
+		return list;
+	}
+	
 	public void		showBasket()
 	{
 		Integer	quantity;
 		Integer	total = 0;
+		String	free;
 		
 		Printer.write("Votre panier contient:");
-		for (Product key : cust.getBasketContent().keySet())
+		for (Price price : getPriceBasket())
 		{
-			Printer.write(key.getName() + ":");
-			quantity = cust.getBasketContent().get(key);
-			Printer.writeCenter(quantity.toString() + " * " +
-						key.getSell_price() + " € = " +
-						((Integer)(quantity * key.getSell_price())).toString() + " €");
-			total += quantity * key.getSell_price();
+			Printer.write(price.product.getName() + ":");
+			quantity = price.quantity;
+			free = "";
+			if (price.free != 0)
+				free = " (+ " + price.free + ")";
+			Printer.writeCenter(quantity.toString() + free + " * " +
+						price.price + " € = " +
+						((Integer)(quantity * price.price)).toString() + " €");
+			total += quantity * price.price;
 		}
 		Printer.write("Total:");
 		Printer.writeCenter(total.toString() + " €");
@@ -184,7 +259,7 @@ public class Shop
 		Printer.writeFull();
 		cust.rmFromBasket(prod);
 		prod.setQuantity(prod.getQuantity() + 1);
-		prod.modify(Product.eType.QUANTITY, "", prod.getQuantity());
+		prod.modify(Product.eField.QUANTITY, "", prod.getQuantity());
 		return null;
 	}
 	

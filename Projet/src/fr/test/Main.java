@@ -4,7 +4,6 @@ import fr.models.Category;
 import fr.models.MyDbUtils;
 import fr.models.Product;
 import fr.models.Customer.eCom;
-import fr.models.Reduction.eTarget;
 import fr.models.Reduction.eType;
 import fr.models.Customer;
 import fr.models.Reduction;
@@ -60,8 +59,8 @@ public class Main {
 		p1.setQuantity(100);
 		// creation d'un nouvau produit
 		p1.create();
-		p1.modify(Product.eType.NAME, "video box", -1);
-		p1.modify(Product.eType.QUANTITY, "", 1000);
+		p1.modify(Product.eField.NAME, "video box", -1);
+		p1.modify(Product.eField.QUANTITY, "", 1000);
 		
 		//clients
 		Customer cl1 = new Customer();
@@ -80,7 +79,7 @@ public class Main {
 		//r1.setType(0);
 		r1.setValue(90);
 		r1.create();
-		r1.modify(0, "bill est decoiffe ??!!!!", -1);
+		r1.modify(Reduction.eField.DESCRIPTION, "bill est decoiffe ??!!!!", -1);
 		//r1.setTarget(sad);
 		
 	}

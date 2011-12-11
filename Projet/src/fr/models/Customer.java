@@ -20,6 +20,7 @@ public class Customer extends MyDbUtils
 	static public class Basket
 	{
 		private Map<Product, Integer>	listProduct;
+		private Map<Product, Integer>	listFreeProduct;
 		private Set<Reduction>			listReduc;
 		
 		Basket()
@@ -43,10 +44,7 @@ public class Customer extends MyDbUtils
 				if (0 < listProduct.get(product) - 1)
 					listProduct.put(product, listProduct.get(product) - 1);
 				else
-				{
 					listProduct.remove(product);
-					//listProduct.keySet().remove(product);
-				}
 			}
 		}
 		
