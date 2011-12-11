@@ -74,7 +74,14 @@ public class Shop
 		Integer i = 0;
 		Set<Product>	prods;
 		
-		Printer.write("Les produits:");
+		if (cat == null)
+			Printer.write("Les produits:");
+		else
+		{
+			Printer.writeCenter("Les produits " + cat.getName());
+			Printer.write(cat.getDescription());
+		}
+			
 		Printer.writeEmpty();
 		prods = DbItem.getProductList(cat);
 		for (Product prod : prods)

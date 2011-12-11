@@ -9,12 +9,12 @@ public class Stock
 	private int sellPrice;
 	private String nextBuying;
 	
-	public int getId() 				{ return id;	}
-	public int getProductId()		{	return productId; }
-	public int getQuantity()		{ return quantity; }
-	public int getBuyPrice()		{ return buyPrice; }
-	public int getSellPrice()		{ return sellPrice; }
-	public String getNextBuying()	{ return nextBuying; }
+	public Integer	getId() 		{ return id;	}
+	public Integer	getProductId()	{	return productId; }
+	public Integer	getQuantity()	{ return quantity; }
+	public Integer	getBuyPrice()	{ return buyPrice; }
+	public Integer	getSellPrice()	{ return sellPrice; }
+	public String	getNextBuying()	{ return nextBuying; }
 	
 	public void setId(int id)						{ this.id = id; }
 	public void setProductId(int productId)			{ this.productId = productId; }

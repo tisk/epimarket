@@ -28,7 +28,7 @@ public class Category extends MyDbUtils
 			e.printStackTrace();
 		}
 	}
-	public int 		getId() 			{ return id; }
+	public Integer	getId() 			{ return id; }
 	public String	getName()			{ return name; }
 	public String	getDescription()	{ return description; }
 	

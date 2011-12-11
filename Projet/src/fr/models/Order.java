@@ -34,12 +34,12 @@ public class Order extends MyDbUtils
 			e.printStackTrace();
 		}
 	}
-	public int getId()			{ return id; }
-	public int getOrderId() 	{ return orderId; }
-	public int getProductId()	{ return productId; }
-	public int getCustomerId()	{ return customerId; }
-	public int getQuantity()	{ return quantity; }
-	public String getDate()		{ return date; }
+	public Integer	getId()			{ return id; }
+	public Integer	getOrderId() 	{ return orderId; }
+	public Integer	getProductId()	{ return productId; }
+	public Integer	getCustomerId()	{ return customerId; }
+	public Integer	getQuantity()	{ return quantity; }
+	public String	getDate()		{ return date; }
 	
 	public void setId(int id)					{ this.id = id; }
 	public void setOrderId(int orderId)			{ this.orderId = orderId; }

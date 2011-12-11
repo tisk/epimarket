@@ -193,11 +193,11 @@ public class Reduction extends MyDbUtils
 	
 	
 	public Reduction(){}
-	public int		getId()			{ return id; }
+	public Integer	getId()			{ return id; }
 	public String	getName()		{ return name; }
 	public String	getDescription(){ return description; }
 	public eType	getType()		{ return type; }
-	public int		getValue()		{ return value; }
+	public Integer	getValue()		{ return value; }
 	public eTarget	getTarget()		{ return target; }
 	public String	getDeadLine()	{ return deadLine; }
 	
