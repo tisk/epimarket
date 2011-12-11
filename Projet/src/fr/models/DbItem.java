@@ -27,11 +27,7 @@ public class DbItem extends MyDbUtils
 			if (rs == null)
 				return null;
 			while (rs.next())
-			{
-				String name = rs.getString(3);
-				Product product = new Product(name);
-				listProduct.add(product);
-			}
+				listProduct.add(new Product(rs.getString(3)));
 		} 
 		catch (SQLException e)
 		{
@@ -49,11 +45,7 @@ public class DbItem extends MyDbUtils
 			if (rs == null)
 				return null;
 			while (rs.next())
-			{
-				String name = rs.getString(2);
-				Reduction reduction = new Reduction(name);
-				listReduction.add(reduction);
-			}
+				listReduction.add(new Reduction(rs.getString(2)));
 		} 
 		catch (SQLException e)
 		{
@@ -71,11 +63,7 @@ public class DbItem extends MyDbUtils
 			if (rs == null)
 				return null;
 			while (rs.next())
-			{
-				String name = rs.getString(2);
-				Category category = new Category(name);
-				listCategory.add(category);
-			}
+				listCategory.add(new Category(rs.getString(2)));
 		} 
 		catch (SQLException e)
 		{
@@ -93,11 +81,7 @@ public class DbItem extends MyDbUtils
 			if (rs == null)
 				return null;
 			while (rs.next())
-			{
-				int id = rs.getInt(1);
-				Order order = new Order(id);
-				listOrder.add(order);
-			}
+				listOrder.add(new Order(rs.getInt(1)));
 		} 
 		catch (SQLException e)
 		{

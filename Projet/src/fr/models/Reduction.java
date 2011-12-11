@@ -65,13 +65,75 @@ public class Reduction extends MyDbUtils
 		}
 	}
 	
+	@Override
+	public int hashCode()
+	{
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + allUser;
+		result = prime * result
+				+ ((deadLine == null) ? 0 : deadLine.hashCode());
+		result = prime * result
+				+ ((description == null) ? 0 : description.hashCode());
+		result = prime * result + id;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + target;
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		result = prime * result + value;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (!(obj instanceof Reduction))
+			return false;
+		Reduction other = (Reduction) obj;
+		if (allUser != other.allUser)
+			return false;
+		if (deadLine == null)
+		{
+			if (other.deadLine != null)
+				return false;
+		}
+		else if (!deadLine.equals(other.deadLine))
+			return false;
+		if (description == null)
+		{
+			if (other.description != null)
+				return false;
+		}
+		else if (!description.equals(other.description))
+			return false;
+		if (id != other.id)
+			return false;
+		if (name == null)
+		{
+			if (other.name != null)
+				return false;
+		}
+		else if (!name.equals(other.name))
+			return false;
+		if (target != other.target)
+			return false;
+		if (type != other.type)
+			return false;
+		if (value != other.value)
+			return false;
+		return true;
+	}
+
 	public void create()
 	{
 		if (existObj(eField.NAME, name) == false)
 		{
 			java.sql.Date sqlDate = new java.sql.Date(new java.util.Date().getTime());
 		 insert("insert into reduction (name, description, type, value, target, deadLine, all_user) VALUES('" + name  + "','" + description  + "'," +
-				 getIdEtype(type) + "," + value + "," + target + "," + sqlDate + "," + allUser +");");
+				 type.ordinal() + "," + value + "," + target + "," + sqlDate + "," + allUser +");");
 		 try {
 				ResultSet rs = null;
 				rs = (ResultSet) select("select * from reduction where name = '" + name + "';");
@@ -90,13 +152,9 @@ public class Reduction extends MyDbUtils
 			if ((type != eField.NONE) || (existObj(type, getAttrVal(type)) == true))
 			{
 				if (type == eField.NAME || type == eField.DESCRIPTION || type == eField.DEADLINE)
-				{
 					update("update reduction set " + getAttr(type) + "=" + "'" + content + "';");
-				}
 				else
-				{
 					update("update reduction set " + getAttr(type) + "=" + cont + ";");
-				}
 			}
 		setAttrVal(type, content, cont);
 	}
@@ -211,23 +269,6 @@ public class Reduction extends MyDbUtils
 			break;		
 		}
 		
-	}
-	
-	public Integer		getIdEtype(eType t)
-	{
-		switch (t)
-		{
-		case PERCENT :
-			return 1;
-		case SUB :
-			return 2;
-		case EQUAL :
-			return 3;
-		case GIVEN :
-			return 4;
-		default :
-			return 0;
-		}
 	}
 	
 	public Reduction(){}

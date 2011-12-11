@@ -64,6 +64,12 @@ public class Product extends MyDbUtils
 	@Override
 	public boolean equals(Object obj)
 	{
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
 		if (obj instanceof Product == false)
 			return false;
 		if (((Product)obj).getId() == id)

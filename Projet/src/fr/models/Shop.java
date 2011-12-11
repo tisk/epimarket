@@ -12,6 +12,7 @@ public class Shop
 		public int quantity;
 		public int free;
 		public int price;
+		public int rupture;
 		
 		public Price(Product prod, int price, int quantity)
 		{
@@ -19,6 +20,7 @@ public class Shop
 			this.quantity = quantity;
 			this.price = price;
 			free = 0;
+			rupture = 0;
 		}
 	}
 	
@@ -196,6 +198,11 @@ public class Shop
 							price.free++;
 							nb_target -= reduc.getValue();
 						}
+						if (price.product.getQuantity() < price.free)
+						{
+							price.rupture = price.free - price.product.getQuantity();
+							price.free = price.product.getQuantity();
+						}
 						break;
 				}
 			}
@@ -215,8 +222,17 @@ public class Shop
 			Printer.write(price.product.getName() + ":");
 			quantity = price.quantity;
 			free = "";
-			if (price.free != 0)
-				free = " (+ " + price.free + ")";
+			if (price.free != 0 || price.rupture != 0)
+			{
+				free = " (";
+				if (price.free != 0)
+					free += "+ " + price.free;
+				if (price.free != 0 || price.rupture != 0)
+					free += " ";
+				if (price.rupture != 0)
+					free += "+ !" + price.rupture;
+				free += ")";
+			}
 			Printer.writeCenter(quantity.toString() + free + " * " +
 						price.price + " € = " +
 						((Integer)(quantity * price.price)).toString() + " €");
